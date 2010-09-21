@@ -17,7 +17,7 @@ package oauth.signpost.jetty;
 import oauth.signpost.AbstractOAuthConsumer;
 import oauth.signpost.http.HttpRequest;
 
-import org.mortbay.jetty.client.HttpExchange;
+import org.eclipse.jetty.client.HttpExchange;
 
 public class JettyOAuthConsumer extends AbstractOAuthConsumer {
 

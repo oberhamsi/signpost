@@ -19,9 +19,9 @@ import java.util.Map;
 
 import oauth.signpost.http.HttpRequest;
 
-import org.mortbay.jetty.HttpFields;
-import org.mortbay.jetty.HttpFields.Field;
-import org.mortbay.jetty.client.HttpExchange;
+import org.eclipse.jetty.http.HttpFields;
+import org.eclipse.jetty.http.HttpFields.Field;
+import org.eclipse.jetty.client.HttpExchange;
 
 public class HttpRequestAdapter implements HttpRequest {
 
@@ -67,13 +67,11 @@ public class HttpRequestAdapter implements HttpRequest {
     @SuppressWarnings("unchecked")
     public Map<String, String> getAllHeaders() {
         HttpFields fields = request.getRequestFields();
-        Iterator iter = fields.getFields();
         HashMap<String, String> headers = new HashMap<String, String>();
-        while (iter.hasNext()) {
-            Field field = (Field) iter.next();
+        for (int i=0; i< fields.size(); i++) {
+            Field field = fields.getField(i);
             headers.put(field.getName(), field.getValue());
         }
-
         return headers;
     }
 

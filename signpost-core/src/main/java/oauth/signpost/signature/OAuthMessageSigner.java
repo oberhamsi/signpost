@@ -21,20 +21,20 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.http.HttpRequest;
 import oauth.signpost.http.HttpParameters;
 
-import org.apache.commons.codec.binary.Base64;
+import org.eclipse.jetty.http.security.B64Code;
 
 public abstract class OAuthMessageSigner implements Serializable {
 
     private static final long serialVersionUID = 4445779788786131202L;
 
-    private transient Base64 base64;
+    private transient B64Code base64;
 
     private String consumerSecret;
 
     private String tokenSecret;
 
     public OAuthMessageSigner() {
-        this.base64 = new Base64();
+        this.base64 = new B64Code();
     }
 
     public abstract String sign(HttpRequest request, HttpParameters requestParameters)
@@ -59,7 +59,7 @@ public abstract class OAuthMessageSigner implements Serializable {
     }
 
     protected byte[] decodeBase64(String s) {
-        return base64.decode(s.getBytes());
+        return base64.decode(s).getBytes();
     }
 
     protected String base64Encode(byte[] b) {
@@ -69,6 +69,6 @@ public abstract class OAuthMessageSigner implements Serializable {
     private void readObject(java.io.ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
-        this.base64 = new Base64();
+        this.base64 = new B64Code();
     }
 }
